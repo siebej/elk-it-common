@@ -1,0 +1,20 @@
+{
+    "name": "elk-it/functions",
+    "description": "functions for PHP",
+    "version": "1.0.0" ,
+    "type": "library",
+    "keywords": ["functions"],
+    "homepage": "https://github.com/siebej/elk-it-functions",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Siebe Jongebloed",
+            "email": "info@elk-it.com",
+            "homepage": "http://www.elk-it.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
