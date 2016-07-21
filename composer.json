@@ -1,10 +1,10 @@
 {
-    "name": "elk-it/functions",
-    "description": "functions for PHP",
+    "name": "elk-it/common",
+    "description": "common static methods functions for PHP",
     "version": "1.0.0" ,
     "type": "library",
     "keywords": ["functions"],
-    "homepage": "https://github.com/siebej/elk-it-functions",
+    "homepage": "https://github.com/siebej/elk-it-coomon",
     "license": "MIT",
     "authors": [
         {
