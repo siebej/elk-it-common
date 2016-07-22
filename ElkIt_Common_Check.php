@@ -22,6 +22,15 @@ class Check {
             return $subject;
         }
     }
+    
+    public static function isNotNull($var) {
+        if (!is_null($var)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
 
     /**
      * in tegenstelling tot empty() die false en 0 als leeg ziet, geeft isEmty alleen echt leeg terug

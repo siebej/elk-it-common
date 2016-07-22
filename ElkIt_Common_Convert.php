@@ -74,6 +74,19 @@ class Convert {
         return $value;
     }
     
+    public static function validUTF8XMLFilter ($in) {
+        return preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', '', $in);
+    }
+    
+    public static function fixUTF8($str){
+        return Encoding::fixUTF8($str);
+    }
+
+    public static function toUTF8($str){
+        return Encoding::toUTF8($str);
+    }
+    
+    
     /*
      * xmlFileToArray doet zijn naam eer aan ;-)
      * Zie http://stackoverflow.com/questions/6578832/how-to-convert-xml-into-array-in-php
@@ -95,6 +108,15 @@ class Convert {
             $arrayOut=$arrayIn;
         }
         return $arrayOut;
+    }
+    
+    public static function encrypt($password,$salt       = 'xedC7h198Ged1') {
+        $iterations = 10;
+        $hash       = crypt($password, $salt);
+        for ($i = 0; $i < $iterations; ++$i) {
+            $hash = crypt($hash . $password, $salt);
+        }
+        return $hash;
     }
 
 }

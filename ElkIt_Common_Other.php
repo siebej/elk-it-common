@@ -22,7 +22,6 @@ class Other {
         }
     }
 
-
     public static function getBytes($val) {
         $val = trim($val);
         $last = strtolower($val[strlen($val)-1]);
