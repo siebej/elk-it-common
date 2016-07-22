@@ -29,6 +29,13 @@ class Naming {
            create_function ('$matches', 'return strtoupper($matches[2]);'), $str);
     }
 
+    public static function fromDbNameToTitle($str, $capitaliseFirstChar = true){
+        if ($capitaliseFirstChar) {
+            $str[0] = strtoupper($str[0]);
+        }
+        return str_replace('_',' ',$str);
+    }
+
     public static function fromObjectToTableName($str) {
         if (strpos($str, 'Model') === 0) {
             return substr(self::fromCamelCase($str), 6);
