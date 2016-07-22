@@ -64,6 +64,15 @@ class Check {
             return FALSE;
         }
     }
+    
+    public static function isEmptyIndex($array,$index){
+        if(isset($array[$index])){
+            return self::isEmpty($array[$index]);
+        } else {
+            return TRUE;
+        }
+        
+    }
 
     public static function between($int, $min, $max) {
         return ($int >= $min && $int <= $max);
