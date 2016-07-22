@@ -7,7 +7,7 @@
  */
 
 namespace ElkIt\Common;
-
+use ElkIt\Common;
 /**
  * Description of xslFunctions
  *
@@ -35,6 +35,36 @@ class Check {
             return FALSE;
         }
     }
+
+    public static function isEmptyIndex($array,$index){
+        if(isset($array[$index])){
+            return self::isEmpty($array[$index]);
+        } else {
+            return TRUE;
+        }
+        
+    }
+    
+    public static function dbValueEqualsUserInput($type,$db,$input){
+        if (Xsl::endsWith($type, 'int')){
+            if ($db===0 && $input===''){
+                return FALSE;
+            } elseif ($db===NULL && $input==='0') {
+                return FALSE;
+            } else {
+                return $db==$input;
+            }
+        }  elseif ((Xsl::endsWith($type, 'char') || Xsl::endsWith($type, 'text')) && strpos($db, "\n")!==FALSE && strpos($input, "\n")!==FALSE){
+            $brs    = array("\r\n", "\n", "\r");
+            $db     = str_replace($brs, "\n", $db);
+            $input  = str_replace($brs, "\n", $input);
+            return $db==$input;
+
+        } else{
+            return $db==$input;
+        }
+    }
+
 
     public static function isUnsignedInt($value) {
         return ctype_digit((string) $value);
@@ -65,15 +95,6 @@ class Check {
         }
     }
     
-    public static function isEmptyIndex($array,$index){
-        if(isset($array[$index])){
-            return self::isEmpty($array[$index]);
-        } else {
-            return TRUE;
-        }
-        
-    }
-
     public static function between($int, $min, $max) {
         return ($int >= $min && $int <= $max);
     }
