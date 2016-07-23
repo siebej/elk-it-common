@@ -7,7 +7,6 @@
  */
 
 namespace ElkIt\Common;
-use ElkIt\Common;
 /**
  * Description of xslFunctions
  *
