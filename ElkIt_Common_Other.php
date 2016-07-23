@@ -16,12 +16,6 @@ namespace ElkIt\Common;
 class Other {
     
 
-    public static function unsetSessionVar($var){
-        if(isset($_SESSION[$var])){
-            unset($_SESSION[$var]);
-        }
-    }
-
     public static function getBytes($val) {
         $val = trim($val);
         $last = strtolower($val[strlen($val)-1]);
@@ -86,4 +80,33 @@ class Other {
         return trim($host);
     }
     
+    public static function end($message=''){
+        if(!empty($message)){
+            echo '<pre>';
+            if(is_array($message)||  is_object($message)){
+                print_r($message);
+            }else{
+                echo $message.EOL;
+            }
+        }
+        Session::dontBuildView();
+        die();
+        
+    }
+    public static function endWithHtmlOutput($html){
+        echo $html.EOL;
+        Session::dontBuildView();
+        die();
+    }
+    
+    public static function endWithPlainMessage($message){
+        if(is_array($message)||  is_object($message)){
+            print_r($message);
+        }else{
+            echo $message.PHP_EOL;
+        }
+        Session::dontBuildView();
+        die();
+    }
+
 }

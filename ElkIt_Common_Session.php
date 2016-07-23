@@ -15,9 +15,35 @@ namespace ElkIt\Common;
  */
 class Session {
 
-    public static function unsetSessionVar($var){
+    public static function unsetVar($var){
         if(isset($_SESSION[$var])){
             unset($_SESSION[$var]);
         }
     }
+    
+    public static function set($name,$value){
+        $_SESSION[$name] = $value;
+    }
+
+    public static function dontBuildView(){
+        self::set('build_view',FALSE);
+    }
+
+    public static function addMessage($message){
+        if(!empty($_SESSION['message'])){
+            $_SESSION['message'] .= PHP_EOL.$message;
+        } else{
+            $_SESSION['message'] = $message;
+        }
+    }
+    
+    public static function setRedirectMessage($message){
+        self::set('redirectMessage',$message);
+    }
+    
+    public static function setAjaxMessage($message){
+        self::set('ajaxMessage',$message);
+    }
+    
+    
 }
