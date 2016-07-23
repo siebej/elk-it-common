@@ -15,6 +15,10 @@ namespace ElkIt\Common;
  */
 class Server {
 
+    /*
+     * Om een server te identificeren gebruiken we o.a. het mac-adres van de netwerk-kaasten.
+     * De uitvraging daarvan gebeurt hier.
+     */
     public static function getMacAddresses(){
         $command = 'ifconfig | grep HWaddr';
         $addressesFromShell = self::logErrorShellExec($command);
