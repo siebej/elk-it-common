@@ -37,6 +37,16 @@ class Session {
         }
     }
     
+    public static function message($message,$params=  array()){
+        if (empty($params['reloadPageAfterSubmit']) && VIA_AJAX){
+    //        print_r_file('paramst',$params);
+            self::setAjaxMessage(__($message));
+        } else {
+            self::setRedirectMessage(__($message));
+        }
+    }
+    
+    
     public static function setRedirectMessage($message){
         self::set('redirectMessage',$message);
     }

@@ -88,4 +88,8 @@ class Http {
         return array($browser,$version[2], 'name'=>$browser,'version'=>$version[2]);
     }
     
+    public static function reDirectWithoutView($path=HTTP_PATH){
+        Session::dontBuildView();
+        header('Location: ' . $path);
+    }
 }
