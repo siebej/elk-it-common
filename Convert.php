@@ -8,7 +8,7 @@
 require_once(ROOT_PATH.'lib\Encoding.php'); 
 use \ForceUTF8\Encoding;  // It's namespaced now.
 
-namespace ElkIt\Common;
+namespace Common;
 
 /**
  * Description of xslFunctions
