@@ -5,6 +5,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+require_once(ROOT_PATH.'lib\Encoding.php'); 
+use \ForceUTF8\Encoding;  // It's namespaced now.
 
 namespace ElkIt\Common;
 
