@@ -5,10 +5,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once(ROOT_PATH.'lib\Encoding.php'); 
+namespace Common;
+
+require_once(ROOT_PATH.'lib/Encoding.php'); 
 use \ForceUTF8\Encoding;  // It's namespaced now.
 
-namespace Common;
 
 /**
  * Description of xslFunctions
@@ -120,5 +121,18 @@ class Convert {
         }
         return $hash;
     }
+    
+    public static function vprintf($stringIn, $arguments) {
+        $return = '';
+        if (DEBUG) {
+            $return.= "\n" . '<!--' . "\n";
+        }
+        $return.= vprintf($stringIn, $arguments);
+        if (DEBUG) {
+            $return.= '-->' . "\n";
+        }
+        return $return;
+    }
+    
 
 }

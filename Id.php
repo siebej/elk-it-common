@@ -71,7 +71,7 @@ class Id {
     }
 
     public static function getAndSetTokenForPostingViaCurl(&$targetDb) {
-        $token          = getTokenValue();
+        $token          = self::getTokenValue();
         $tokenInsert    = $targetDb->dbInsert('insert into token set waarde="'.$token.'"');
         if(false===$tokenInsert){
             return FALSE;
