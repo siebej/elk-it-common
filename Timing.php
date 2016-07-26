@@ -60,7 +60,7 @@ class Timing {
         } else {
             $timeDiff   = $now - $lastTime;
             $_SESSION['lastTime']=$now;
-            return round($timeDiff,5);
+            return round($timeDiff,3);
         }
     }
 
