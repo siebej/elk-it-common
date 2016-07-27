@@ -21,13 +21,13 @@ class Debug {
     private static $warningNoDebugFile=FALSE;
 
     public static function setHandler($handler){
-        self::$handler = $handler;
+        self::$handler    = $handler;
         self::$handlers[] = $handler;
     }
 
     public static function restoreHandler(){
-        $lastHandler=array_pop(self::$handlers);
-        $currentHandler= end(self::$handlers);
+        $lastHandler    = array_pop(self::$handlers);
+        $currentHandler = end(self::$handlers);
         self::$handler = $currentHandler;
     }
 
@@ -85,7 +85,9 @@ class Debug {
         } elseif (self::$handler==='echo') {
             self::storeEcho($name, $value, $pre);
         } elseif (self::$handler==='chrome') {
-        
+            //Nog maken
+        } else {
+            
         }
     }
     
@@ -110,7 +112,14 @@ class Debug {
     
     private static function storeFile($name,$value){
         if(self::$debugFile){
-            file_put_contents(self::$debugFile, $name.': '.$value."\n", FILE_APPEND | LOCK_EX);
+            if (isset($_SESSION['user_id'])){
+                $userId = $_SESSION['user_id'];
+            } else {
+                $userId = 0;
+            }
+            $now = new DateTime();
+            //Format 00001 2016-07-27T13:47:00 $name:$value;
+            file_put_contents(self::$debugFile, str_pad($userId, 4, '0', STR_PAD_LEFT) . ' ' .$now->format('Y-m-d\TH:i:s') .' '. $name.': '.$value."\n", FILE_APPEND | LOCK_EX);
         } else {
             if(FALSE===self::$warningNoDebugFile){
                 trigger_error('Geen debugFile bekend',E_USER_WARNING);
