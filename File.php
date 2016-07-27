@@ -55,7 +55,7 @@ class File {
             if (!@mkdir($target,$mode,TRUE)) {
                 $error = error_get_last();
                 trigger_error('Het Pad >'. $target .' kan niet geschreven worden. Reden ' . $error, E_USER_WARNING);
-                return false;
+                return FALSE;
             }
         }
         return TRUE;
