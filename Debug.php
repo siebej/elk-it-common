@@ -41,6 +41,10 @@ class Debug {
         self::restoreHandler();
     }
 
+    public static function nameValueToEcho($name,$value){
+        self::nameValueToHandler($name, $value,'echo');
+    }
+
     public static function nameValue($name,$value){
         if (FALSE===DEBUG) {
             return;
