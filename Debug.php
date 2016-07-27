@@ -126,8 +126,8 @@ class Debug {
                 $userId = 0;
             }
             $now = new \DateTime();
-            //Format 00001 2016-07-27T13:47:00 $name:$value;
-            file_put_contents(self::$debugFile, str_pad($userId, 4, '0', STR_PAD_LEFT) . ' ' .$now->format('Y-m-d\TH:i:s') .' '. $name.': '.$value."\n", FILE_APPEND | LOCK_EX);
+            //Format [00001] [2016-07-27T13:47:00] $name:$value;
+            file_put_contents(self::$debugFile, '['.str_pad($userId, 4, '0', STR_PAD_LEFT) . '] [' .$now->format('Y-m-d\TH:i:s') .'] '. $name.': '.$value."\n", FILE_APPEND | LOCK_EX);
         } else {
             if(FALSE===self::$warningNoDebugFile){
                 trigger_error('Geen debugFile bekend',E_USER_WARNING);
