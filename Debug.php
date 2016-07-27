@@ -45,6 +45,14 @@ class Debug {
         self::nameValueToHandler($name, $value,'echo');
     }
 
+    public static function nameValueToFile($name,$value){
+        self::nameValueToHandler($name, $value,'file');
+    }
+
+    public static function nameValueToSession($name,$value){
+        self::nameValueToHandler($name, $value,'session');
+    }
+
     public static function nameValue($name,$value){
         if (FALSE===DEBUG) {
             return;
