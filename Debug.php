@@ -57,18 +57,6 @@ class Debug {
         }
     }
     
-    public static function errorMessage($message){
-        if(VIA_AJAX){
-            if (!empty($_SESSION['sqlError'])) {
-                unset($_SESSION['sqlError']);
-            }
-            Ajax::responseJson(array('ServerError'=>  $message ));
-        } else{
-            $_SESSION['errorMessage'] = $message;
-        }
-        
-    }
-
     private static function handleSingleValue($name,$value){
         self::store($name, $value);
     }
