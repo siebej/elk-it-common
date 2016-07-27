@@ -57,28 +57,6 @@ class Other {
 
         return $arrayMulti;
     }
-
-    public static function getServerName() {
-        if(Check::isCommandLineInterface()){
-            return php_uname("n");
-
-        } elseif ($host = $_SERVER['HTTP_X_FORWARDED_HOST']) {
-            $elements = explode(',', $host);
-
-            $host = trim(end($elements));
-        } else {
-            if (!$host = $_SERVER['HTTP_HOST']) {
-                if (!$host = $_SERVER['SERVER_NAME']) {
-                    $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
-                }
-            }
-        }
-
-        // Remove port number from host
-        $host = preg_replace('/:\d+$/', '', $host);
-
-        return trim($host);
-    }
     
     public static function end($message=''){
         if(!empty($message)){

@@ -16,15 +16,29 @@ namespace Common;
 class Debug {
     
     private static $handler='session';
+    private static $handlers=array('session');
     private static $debugFile=FALSE;
     private static $warningNoDebugFile=FALSE;
 
     public static function setHandler($handler){
         self::$handler = $handler;
+        self::$handlers[] = $handler;
+    }
+
+    public static function restoreHandler(){
+        $lastHandler=array_pop(self::$handlers);
+        $currentHandler= end(self::$handlers);
+        self::$handler = $currentHandler;
     }
 
     public static function setDebugFile($debugFile){
         self::$debugFile = $debugFile;
+    }
+    
+    public static function nameValueToHandler($name,$value,$handler='file'){
+        self::setHandler($handler);
+        self::nameValue($name, $value);
+        self::restoreHandler();
     }
 
     public static function nameValue($name,$value){
@@ -43,6 +57,18 @@ class Debug {
         }
     }
     
+    public static function errorMessage($message){
+        if(VIA_AJAX){
+            if (!empty($_SESSION['sqlError'])) {
+                unset($_SESSION['sqlError']);
+            }
+            Ajax::responseJson(array('ServerError'=>  $message ));
+        } else{
+            $_SESSION['errorMessage'] = $message;
+        }
+        
+    }
+
     private static function handleSingleValue($name,$value){
         self::store($name, $value);
     }

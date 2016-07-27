@@ -13,10 +13,10 @@ namespace Common;
  *
  * @author Siebe Jongebloed
  */
-class Output {
+class BypassView {
     
 
-    public static function end($message=''){
+    public static function message($message=''){
         if(!empty($message)){
             echo '<pre>';
             if(is_array($message)||  is_object($message)){
@@ -29,6 +29,7 @@ class Output {
         die();
         
     }
+    
     public static function endWithHtmlOutput($html){
         echo $html.EOL;
         Session::dontBuildView();
@@ -44,24 +45,5 @@ class Output {
         Session::dontBuildView();
         die();
     }
-    
-    public static function var_dump($name,$var){
-        echo '<p>'.$name.'</p>';
-        echo '<pre>';
-        var_dump($var);
-        echo '</pre>';
-    }
-    
-    public static function print_r($name,$var){
-        echo '<p>'.$name.'</p>';
-        echo '<pre>';
-        print_r($var);
-        echo '</pre>';
-    }
- 
-    public static function echo_p($name,$value){
-        echo '<p>'.$name.': '.$value.'</p>';
-    }
-    
 
 }
