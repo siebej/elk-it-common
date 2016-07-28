@@ -124,7 +124,7 @@ class Check {
         $formats = array("d-m-Y", "Y-m-d", "Ymd");
         foreach ($formats as $format) {
 
-            $date = DateTime::createFromFormat($format, $dateString);
+            $date = \DateTime::createFromFormat($format, $dateString);
             if ($date !== FALSE && (date_format($date, $format) == $dateString)) {
                 return TRUE;
             }
