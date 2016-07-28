@@ -119,6 +119,18 @@ class Check {
     public static function isCommandLineInterface(){
         return (php_sapi_name() === 'cli');
     }
+
+    public function dateFormats($date) {
+        $formats = array("d-m-Y", "Y-m-d", "Ymd");
+        foreach ($formats as $format) {
+
+            $date = DateTime::createFromFormat($format, $dateString);
+            if ($date !== FALSE && (date_format($date, $format) == $dateString)) {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
     
     public static function isDate($date,$format='Y-m-d\TH:i:s\Z'){
         $d = \DateTime::createFromFormat($format, $date);
