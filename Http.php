@@ -67,6 +67,10 @@ class Http {
     }
 
     public static function browser() {
+        if(POST_VIA_CURL){
+            
+            return array('curl','1', 'name'=>'curl','version'=>'1');
+        }
         $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
         // you can add different browsers with the same way ..
         if(preg_match('/(chromium)[ \/]([\w.]+)/', $ua)){

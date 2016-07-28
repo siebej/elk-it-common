@@ -26,6 +26,7 @@ class Timing {
 
     public static function setSessionStartTime(){
         self::$startTime = microtime(TRUE);
+        self::setSessionLastTime();
     }
 
     public static function setSessionLastTime(){
