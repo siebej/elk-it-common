@@ -53,7 +53,7 @@ class Debug {
         self::nameValueToHandler($name, $value,'session');
     }
 
-    public static function nameValue($name,$value){
+    public static function nameValue($name,$value=''){
         if (FALSE===DEBUG) {
             return;
         }
