@@ -39,7 +39,7 @@ class Server {
         if(Check::isCommandLineInterface()){
             return php_uname("n");
 
-        } elseif ($host = $_SERVER['HTTP_X_FORWARDED_HOST']) {
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && $host = $_SERVER['HTTP_X_FORWARDED_HOST']) {
             $elements = explode(',', $host);
 
             $host = trim(end($elements));
