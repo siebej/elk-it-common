@@ -121,7 +121,7 @@ class Check {
     }
     
     public static function isDate($date,$format='Y-m-d\TH:i:s\Z'){
-        $d = DateTime::createFromFormat($format, $date);
+        $d = \DateTime::createFromFormat($format, $date);
         if($d && $d->format($format) === $date){
             return $d;
         } else {
