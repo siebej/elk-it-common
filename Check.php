@@ -120,7 +120,7 @@ class Check {
         return (php_sapi_name() === 'cli');
     }
 
-    public function dateFormats($dateString) {
+    public static function dateFormats($dateString) {
         $formats = array("d-m-Y", "Y-m-d", "Ymd");
         foreach ($formats as $format) {
 
