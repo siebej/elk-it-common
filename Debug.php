@@ -35,10 +35,28 @@ class Debug {
         self::$debugFile = $debugFile;
     }
     
+    public static function varDumpToHandler($name,$value,$handler='file'){
+        self::setHandler($handler);
+        self::varDump($name, $value);
+        self::restoreHandler();
+    }
+    
     public static function nameValueToHandler($name,$value,$handler='file'){
         self::setHandler($handler);
         self::nameValue($name, $value);
         self::restoreHandler();
+    }
+    
+    public static function varDumpToFile($name,$value){
+       self::varDumpToHandler($name, $value,'file');
+    }
+
+    public static function varDumpToEcho($name,$value){
+       self::varDumpToHandler($name, $value,'echo');
+    }
+
+    public static function varDumpToSession($name,$value){
+        self::varDumpToHandler($name, $value,'session');
     }
 
     public static function nameValueToEcho($name,$value){
@@ -57,9 +75,6 @@ class Debug {
         if (FALSE===DEBUG) {
             return;
         }
-        if(Xsl::startsWith($name,'$')){
-            $name = substr($name, 1);
-        }
         if (is_object($value)){
             self::varDump($name,$value);
         } elseif (is_array($value)) {
@@ -77,7 +92,7 @@ class Debug {
         self::store($name, print_r($value,TRUE), TRUE);
     }
         
-    private static function varDump($name,$value){
+    public static function varDump($name,$value){
         ob_start();
         var_dump($value);
         $buffer = ob_get_contents();
@@ -86,6 +101,9 @@ class Debug {
     }
         
     private static function store($name,$value,$pre=FALSE){
+        if(Xsl::startsWith($name,'$')){
+            $name = substr($name, 1);
+        }
         if(self::$handler==='session'){
             self::storeSession($name, $value, $pre);
         } elseif (self::$handler==='file') {
