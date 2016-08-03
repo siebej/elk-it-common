@@ -38,8 +38,7 @@ class Session {
     }
     
     public static function message($message,$params=  array()){
-        if (empty($params['reloadPageAfterSubmit']) && VIA_AJAX){
-    //        print_r_file('paramst',$params);
+        if (empty($params['reloadPageAfterSubmit']) && Ajax::isAjaxRequest()){
             self::setAjaxMessage(__($message));
         } else {
             self::setRedirectMessage(__($message));
