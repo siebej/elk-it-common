@@ -15,8 +15,10 @@ namespace Common;
  */
 class Inform {
     
+    private static $_isAjaxRequest=FALSE;
+
     public static function errorMessage($message){
-        if(VIA_AJAX){
+        if(self::$_isAjaxRequest){
             if (!empty($_SESSION['sqlError'])) {
                 unset($_SESSION['sqlError']);
             }
@@ -26,4 +28,9 @@ class Inform {
         }
         
     }
+    
+    public static function setIsAjaxRequest($isAjaxRequest){
+        self::$_isAjaxRequest = $isAjaxRequest;;
+    }
+    
 }
