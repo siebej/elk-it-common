@@ -15,11 +15,21 @@ namespace Common;
  */
 class Ajax {
 
+    private static $_isAjaxRequest=FALSE;
+
     public static function responseJson($data){
         Session::dontBuildView();
         header($_SERVER["SERVER_PROTOCOL"] . ' 200 OK');
         echo json_encode($data);
         die();
+    }
+    
+    public static function setIsAjaxRequest($isAjaxRequest){
+        self::$_isAjaxRequest = $isAjaxRequest;
+    }
+    
+    public static function isAjaxRequest(){
+        return self::$_isAjaxRequest;
     }
     
 }
