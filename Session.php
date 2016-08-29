@@ -53,24 +53,4 @@ class Session {
     public static function setAjaxMessage($message){
         self::set('ajaxMessage',$message);
     }
-    
-    public static function setInfoForViewNotValid($name,$message){
-        self::setInfoForView('notValid',$name,$message);
-    }
-
-    public static function setInfoForView($type,$name,$value){
-        $_SESSION['infoForView'][$type][$name][] = $value;
-    }
-    
-    public static function getInfoForView(){
-        if (isset($_SESSION['infoForView'])){
-            return $_SESSION['infoForView'];
-        } else {
-            return FALSE;
-        }
-    }
-    
-    public static function unsetInfoForView(){
-        self::unsetVar('infoForView');
-    }
 }
