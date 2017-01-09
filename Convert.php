@@ -46,6 +46,27 @@ class Convert {
             }
         }
     }
+    
+    private static function gmpNumToBase($num, $base=62){
+        $gmpNum = gmp_init($num);
+        return gmp_strval($gmpNum,$base);
+    }
+
+    public static function numToBase($num, $b=62) {
+        if (extension_loaded('gmp')) {
+            return self::gmpNumToBase($num, $b);
+        }
+        $base='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $r = $num  % $b ;
+        $res = $base[$r];
+        $q = floor($num/$b);
+        while ($q) {
+            $r = $q % $b;
+            $q =floor($q/$b);
+            $res = $base[$r].$res;
+        }
+        return $res;
+    }
 
     public static function formatSql($sql){
         if(class_exists('SqlFormatter')){
