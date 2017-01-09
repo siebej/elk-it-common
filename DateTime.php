@@ -20,6 +20,10 @@ class DateTime {
         return date("Ymd-Hi");
     }
     
+    public static function dateAsName(){
+        return date("Ymd");
+    }
+
     public static function dateTimeSecondsAsName($dateSplitString='',$timeSplitString='',$typeSplitString=''){
         $mask = 'Y'.$dateSplitString.'m'.$dateSplitString.'d'.$typeSplitString.'H'.$timeSplitString.'i'.$timeSplitString.'s';
         return date($mask) . $typeSplitString . substr((string)microtime(), 2, 6);
