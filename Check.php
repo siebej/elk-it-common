@@ -73,7 +73,6 @@ class Check {
         }
     }
 
-
     public static function isUnsignedInt($value) {
         return ctype_digit((string) $value);
     }
@@ -84,11 +83,18 @@ class Check {
 
     public static function isNummeric(&$input,$europeanInput){
         if ($europeanInput){
+            /*
+             * Filter optionele punten en vervang een comma door een punt.
+             */
             $input = floatval(str_replace(',', '.', str_replace('.', '', $input)));
+        } else {
+            /*
+             * Filter optionele comma's.
+             */
+            $input = str_replace(',', '', $input);
         }
         return(is_numeric($input));
     }
-
     
     public static function isPingable($ip) {
         $pingresult = exec("/bin/ping -n 3 $ip", $outcome, $status);
