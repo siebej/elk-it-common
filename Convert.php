@@ -18,6 +18,9 @@ use \ForceUTF8\Encoding;  // It's namespaced now.
  */
 class Convert {
     
+    private static $urldecode               = FALSE;
+    private static $postCheckDecodeName     ='a_z';
+    private static $postCheckDecodeValue    ='a z';
 
     public static function toNummeric(&$input,$europeanInput){
         if ($europeanInput){
@@ -81,6 +84,38 @@ class Convert {
         return preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', '', $in);
     }
     
+    public static function getPostCheckDecodeName(){
+        return static::$postCheckDecodeName;
+    }
+
+    public static function getPostCheckDecodeValue(){
+        return static::$postCheckDecodeValue;
+    }
+
+
+    /*
+     * Php zou automatisch decoding moeten doen, maar doet dat soms niet.
+     * Daarvoor hebben we in ter controle een hidden met de naam a_z waarin 1 spatie staat.
+     * Als deze wordt vertaald in +-teken, weten we dat we dus de andere elementen ook moeten decoden
+     */
+    public static function setUrldecode($params){
+        if(isset($params[static::$postCheckDecodeName]) && Xsl::contains($params[static::$postCheckDecodeName],'+')){
+            static::$urldecode=TRUE;
+        }
+    }
+    
+    /**
+     * 
+     * @param type $str
+     * De urldecode doet een \urldecode zo vaak als $urldecodeCount meer dan 0.
+     * De functie ontstond, toen bleek dat in niet alle situaties apache/php post-data weer urldecode.
+     */
+    public static function urldecode(&$str){
+        if(is_string($str) && static::$urldecode){
+            $str=urldecode($str);
+        }
+    }
+
     public static function fixUTF8($str){
         return Encoding::fixUTF8($str);
     }
@@ -134,5 +169,21 @@ class Convert {
         return $return;
     }
     
-
+    public static function bool($bool,$returnType='bool'){
+    	if($returnType==='string') {
+            if($bool===TRUE){
+                    return '1';
+            } else {
+                    return '0';
+            }
+        } elseif(Xsl::startsWith($returnType,'int')) {
+            if($bool===TRUE){
+                    return 1;
+            } else {
+                    return 0;
+            }
+        } else {
+            return $bool;
+        }
+    }
 }

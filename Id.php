@@ -53,6 +53,7 @@ class Id {
         if (function_exists('openssl_random_pseudo_bytes') &&
                 (version_compare(PHP_VERSION, '5.3.4') >= 0 ||
                 substr(PHP_OS, 0, 3) !== 'WIN')) {
+            $strong = FALSE;
             $SSLstr = openssl_random_pseudo_bytes($length, $strong);
             if ($strong) {
                 return substr(base64_encode($SSLstr),0,$length);

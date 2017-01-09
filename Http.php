@@ -96,4 +96,30 @@ class Http {
         Session::dontBuildView();
         header('Location: ' . $path);
     }
+    
+    /**
+     * Functie om name-value-pairs in de vorm van /model/User/id/123456 te vertalen naar: $_GET['model']='User',$_GET['id']='123456'
+     */
+    public function seoQsToGlobalGet(){
+        if(!empty($_GET['seo-qs'])){
+            $q = $_GET['seo-qs'];
+            $qParts= explode('/', $q);
+            $isKey=TRUE;
+            foreach ($qParts as $index=>$qPart){
+                if($isKey){
+                    if (!empty($qParts[$index+1])){
+                        $value=$qParts[$index+1];
+                    } else {
+                        $value= NULL;
+                    }
+                    $_GET[$qPart]=$value;
+                    $isKey=FALSE;
+                } else {
+                   $isKey = TRUE;
+                }
+            }
+        }
+
+    }
+    
 }

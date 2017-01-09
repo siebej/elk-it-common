@@ -15,10 +15,11 @@ namespace Common;
  */
 class Debug {
     
-    private static $handler='session';
-    private static $handlers=array('session');
-    private static $debugFile=FALSE;
-    private static $warningNoDebugFile=FALSE;
+    private static $handler             ='session';
+    private static $handlers            =array('session');
+    private static $debugFile           =FALSE;
+    private static $warningNoDebugFile  =FALSE;
+    private static $useHtml             =TRUE;
 
     public static function setHandler($handler){
         self::$handler    = $handler;
@@ -31,6 +32,10 @@ class Debug {
         self::$handler = $currentHandler;
     }
 
+    public static function dontUseHtml(){
+        self::$useHtml = FALSE;
+    }
+    
     public static function setDebugFile($debugFile){
         self::$debugFile = $debugFile;
     }
@@ -109,7 +114,11 @@ class Debug {
         } elseif (self::$handler==='file') {
             self::storeFile($name, $value);
         } elseif (self::$handler==='echo') {
-            self::storeEcho($name, $value, $pre);
+            if(self::$useHtml){
+                self::storeEchoHtml($name, $value, $pre);
+            }else {
+                self::storeEcho($name, $value);
+            }
         } elseif (self::$handler==='chrome') {
             //Nog maken
         } else {
@@ -124,13 +133,17 @@ class Debug {
         echo '</pre>';
     }
 
-    private static function storeEcho($name,$value,$pre=FALSE){
+    private static function storeEchoHtml($name,$value,$pre=FALSE){
         if ($pre){
             self::storeEchoPre($name, $value);
         } else {
             echo '<p>'.$name.': '.$value.'</p>';
         }
     }
+
+    private static function storeEcho($name,$value){
+            echo $name.': '.$value."\n";
+        }
 
     private static function storeSession($name,$value,$pre=FALSE){
         $_SESSION['debugStrings'][]= array('naam' => $name , 'waarde' => $value ,'pre' => $pre);

@@ -54,5 +54,25 @@ class Session {
         self::set('ajaxMessage',$message);
     }
     
+    /**
+     * 
+     * @param type $returnType
+     * @return type
+     * Functie is ontstaan vanuit behoefte om van een url 
+     * in de vorm van index.php?model=User&id=123456 seo friendly te maken 
+     * in de vorm van /model/User/id/123456
+     * Om te herkennen of dit actief is zetten we in .htaccess iets als RewriteRule ^(.*)$ /index.php?seo-qs=$1 [L,QSA]
+     * En dient in de apche config file .htaccess actief te zijn m.b.v. AllowOverride All in de <Directory "/var/www/html"> tag
+     */
+    public static function seoQsEnabled($returnType='string'){
+        if(!empty($_GET['seo-qs'])){
+            $_SESSION['seoQsEnabled'] = TRUE;
+        }
+        if(isset($_SESSION['seoQsEnabled'])){
+            return Convert::bool(TRUE,$returnType);
+        } else {
+            return Convert::bool(FALSE,$returnType);
+        }
+    }
     
 }

@@ -50,7 +50,7 @@ class File {
         return $zip->close();
     }
 
-    public static function createDirIfNotExists($target,$mode='0755') {
+    public static function createDirIfNotExists($target,$mode=0755) {
         if(!is_dir($target) && !is_file($target) && !is_link($target)){
             if (!@mkdir($target,$mode,TRUE)) {
                 $error = error_get_last();
